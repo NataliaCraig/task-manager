@@ -6,11 +6,8 @@ import TaskList from './TaskList';
 
 export default function TaskBoard() {
 
- const [tasks, setTasks] = useState(() => {
-  if (typeof window === 'undefined') return [];
-  const saved = localStorage.getItem('tasks');
-  return saved ? JSON.parse(saved) : [];
-});
+  const [tasks, setTasks] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   function handleAdd(title) {
     setTasks([
