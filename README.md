@@ -15,8 +15,6 @@ Color Palette: I utilized a custom cyan-500 to blue-700 gradient for the brand h
 
 User Experience: Added a "Dashboard" style stats bar to give the user immediate feedback on their productivity metrics.
 
-
-
 Lifting State Up: Managed all task data in TaskBoard.js and passed functions down as props to children.
 
 Immutability: Used .map(), .filter(), and the spread operator [...] to update state without direct mutation.
@@ -25,8 +23,21 @@ Hydration Management: Implemented a hasMounted state guard to prevent Next.js hy
 
 Derived Values: Calculated total, active, and done counts effeciently during render to ensure data consistency.
 
+## Setup Instructions
 
-AI Useage Log 
+1. Clone the repository:
+   git clone https://github.com/NataliaCraig/task-manager.git
+
+2. Install dependencies:
+   npm install
+
+3. Run the development server:
+   npm run dev
+
+4. Open http://localhost:3000 in your browser
+
+
+## AI Useage Log 
 
 Question-
 "How to structure a Next.js task manager following the 'Lifting State Up' pattern.

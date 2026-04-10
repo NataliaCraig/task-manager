@@ -12,6 +12,8 @@ import TaskStats from './TaskStats';
 
 export default function TaskBoard() {
   // STATE: Using the Lazy Initializer to prevent hydration errors
+  // Lazy initializer ensures this code runs ONLY on first render,
+// improving performance and preventing repeated localStorage reads.
   const [tasks, setTasks] = useState(() => {
     if (typeof window === 'undefined') return [];
     const saved = localStorage.getItem('tasks');
@@ -21,11 +23,18 @@ export default function TaskBoard() {
   const [filter, setFilter] = useState('all');
 
   // EFFECT: Keep localStorage in sync with React state
+  // Syncs React state → browser storage.
+// useEffect runs AFTER render because writing to localStorage
+// is a side effect (external system). Doing this during render
+// would break React’s rendering model.
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   // HANDLERS
+  // Creates a NEW array instead of mutating existing state.
+// React compares references to detect changes — mutation
+// would not trigger a re-render reliably.
   function handleAdd(title) {
     setTasks([...tasks, { id: crypto.randomUUID(), title, done: false }]);
   }
@@ -96,7 +105,10 @@ export default function TaskBoard() {
           ))}
         </div>
 
-        {/* Action Components */}
+        {/* Action Components
+        // Passing handleAdd DOWN so the child can send data UP.
+// This maintains unidirectional data flow and keeps
+// TaskBoard as the single source of truth. */}
         <AddTaskForm onAdd={handleAdd} />
 
         <TaskList
@@ -104,7 +116,8 @@ export default function TaskBoard() {
           onToggle={handleToggle}
           onDelete={handleDelete}
         />
-
+{/* Only render this button when there are completed tasks.
+// Prevents unnecessary UI and improves user experience.*/}
         {completed > 0 && (
           <button
             onClick={handleClearDone}
