@@ -24,3 +24,12 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@theme {
+  --font-display: var(--font-quicksand); /* For Headers */
+  --font-sans: var(--font-inter);       /* For UI/Body */
+}
+@theme {
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-outfit); /* Add this line */
+}

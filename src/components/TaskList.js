@@ -1,32 +1,32 @@
 // COMPONENT: TaskList
-// PURPOSE:  Displays a list of tasks passed down from
-//           TaskBoard. Delegates rendering of each task
-//           to TaskCard for better component separation.
-// TYPE:     Client Component — needs onClick handlers
+// PURPOSE:  Maps through the filtered tasks array and renders a TaskCard for each. It acts as a bridge between the 'brain' (Board) and the 'UI' (Card).
+// TYPE:     Client Component
+// PROPS:    tasks (array), onToggle (func), onDelete (func)
 'use client';
 
 import TaskCard from './TaskCard';
 
-// Props:
-//   tasks     — array of task objects to display
-//   onToggle  — callback from TaskBoard to toggle a task
-//   onDelete  — callback from TaskBoard to delete a task
 export default function TaskList({ tasks, onToggle, onDelete }) {
 
-  // Conditional rendering:
-  // If there are no tasks, show a message instead of an empty list.
+  // CONDITIONAL RENDER: If the array is empty, we show a feedback message. This prevents a confusing blank screen for the user when no tasks match the filter.
   if (tasks.length === 0) {
-    return <p className="text-gray-500 mt-4">No tasks yet.</p>;
+    return (
+      <div className="text-center py-10">
+        <p className="text-gray-400 italic">No tasks found in this view...</p>
+      </div>
+    );
   }
 
   return (
-<ul className="mt-6 space-y-3">      
-      {/* Instead of rendering each task directly here,
-          we delegate to TaskCard. This improves code
-          organization and reusability. */}
+    <ul className="mt-6 space-y-3">      
       {tasks.map((task) => (
+        /* KEY PROP: Use task.id so React can identify 
+           each element. This allows React to optimize the 
+           reconciliation process and only re-render the specific 
+           item that changed, instead of the whole list. 
+        */
         <TaskCard
-          key={task.id} // React uses key to track list changes efficiently
+          key={task.id} 
           id={task.id}
           title={task.title}
           done={task.done}

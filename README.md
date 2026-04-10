@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Beach Focus Board
+**ISM 3232 – Module 10: My Task Manager**
 
-## Getting Started
+A premium, coastal inspired productivity manager built with Next.js 16 and React 19. This project demonstrates state management, persistent storage, and modern UI/UX principles.
 
-First, run the development server:
+https://github.com/NataliaCraig/task-manager.git
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+For this project, I worked to create a Beach Focused aesthetic. Key decisions included:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Typography: Paired Outfit, a bold, modern sans serif for clear easy to read headers with Inter for clean, legible task data.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Visual Style: Implemented Glassmorphism using Tailwind's backdrop blur and semi transparent white backgrounds (bg-white/80) to create a light header look over the coastal gradient.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Color Palette: I utilized a custom cyan-500 to blue-700 gradient for the brand headers to simulate ocean colors, providing high contrast. 
 
-## Learn More
+User Experience: Added a "Dashboard" style stats bar to give the user immediate feedback on their productivity metrics.
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Lifting State Up: Managed all task data in TaskBoard.js and passed functions down as props to children.
 
-## Deploy on Vercel
+Immutability: Used .map(), .filter(), and the spread operator [...] to update state without direct mutation.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Hydration Management: Implemented a hasMounted state guard to prevent Next.js hydration errors when reading from localStorage.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Derived Values: Calculated total, active, and done counts effeciently during render to ensure data consistency.
+
+
+AI Useage Log 
+"How to structure a Next.js task manager following the 'Lifting State Up' pattern.
+
+Explained the parent-child data flow and the need for a central 'Brain' component.
+
+I moved all state to TaskBoard.js and passed handlers like onToggle as props to keep child components reusable.
+
+"How to pair Google Fonts in Next.js 16 to get a premium coastal/beach vibe."
+Recommended pairing Outfit (display) with Inter (sans) and using CSS variables in Tailwind v4.
+
+I learned how to use next/font/google to optimize loading and applied font-black with wide letter-spacing for a high-end look.
+
+"Fixing the 'Hydration failed' error when reading from localStorage."
+
+Explained the mismatch between server-rendered HTML and client-side storage.
+
+I implemented a hasMounted useEffect hook. This ensures the app only renders client-specific data after the initial mount, resolving the error.
+
+"How to create a glassmorphism effect using Tailwind CSS."
+
+Suggested using bg-white/80 combined with backdrop-blur-md and thin white borders.
+
+I applied this to the main container to create a effect that looks good against the blue background.
+
+"Why should I use .map() instead of .push() when updating task list?"
+Explained React’s reconciliation process and the need for immutable state.
+
+I avoided direct mutation and used .map() and [...] spread operators to ensure React detects every state change and re-renders correctly.
+
+"Brainstorm a creative way to show task statistics that isn't just a basic list."
+
+Suggested a dashboard-style grid with varying weights and specific accent colors.
+
+I built a custom grid with cyan-50/30 background highlights to make the active vs. completed tasks stand out visually.
